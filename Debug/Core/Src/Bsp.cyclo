@@ -1,0 +1,15 @@
+../Core/Src/Bsp.c:17:6:Bsp_Init	1
+../Core/Src/Bsp.c:44:10:Bsp_ReadAdc	1
+../Core/Src/Bsp.c:51:6:Bsp_SetPwmDutyCycle	4
+../Core/Src/Bsp.c:76:9:Bsp_GetSamplingFlag	1
+../Core/Src/Bsp.c:81:6:Bsp_ClearSamplingFlag	1
+../Core/Src/Bsp.c:86:6:Bsp_SetSamplingFlag	1
+../Core/Src/Bsp.c:91:9:Bsp_GetDebounceFlag	1
+../Core/Src/Bsp.c:96:6:Bsp_ClearDebounceFlag	1
+../Core/Src/Bsp.c:101:6:Bsp_SetDebounceFlag	1
+../Core/Src/Bsp.c:106:9:Bsp_GetButtonFlag	1
+../Core/Src/Bsp.c:111:6:Bsp_ClearButtonFlag	1
+../Core/Src/Bsp.c:116:6:Bsp_SetButtonFlag	1
+../Core/Src/Bsp.c:121:9:Bsp_GetUartFlag	1
+../Core/Src/Bsp.c:126:6:Bsp_ClearUartFlag	1
+../Core/Src/Bsp.c:131:6:Bsp_SetUartFlag	1
