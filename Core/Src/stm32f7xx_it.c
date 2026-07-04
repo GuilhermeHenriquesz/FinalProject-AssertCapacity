@@ -235,7 +235,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if (htim->Instance == TIM6)
     {
-        Bsp_SetDebounceFlag();
+        HAL_TIM_Base_Stop_IT(&htim6);
+        Bsp_ClearDebounceFlag();
+        Bsp_SetButtonFlag();
     }
 
     else if (htim->Instance == TIM7)
@@ -248,7 +250,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
     if (GPIO_Pin == GPIO_PIN_13)
     {
-        buttonFlag = 1;
+        if (!Bsp_GetDebounceFlag())
+        {
+            Bsp_SetDebounceFlag();
+            __HAL_TIM_SET_COUNTER(&htim6, 0);
+            HAL_TIM_Base_Start_IT(&htim6);
+        }
     }
 }
 

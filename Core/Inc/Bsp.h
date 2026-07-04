@@ -5,6 +5,7 @@ void Bsp_Init(void);
 uint16_t Bsp_ReadAdc(void);
 
 void Bsp_SetPwmDutyCycle(uint8_t ledId, uint8_t dutyCycle);
+uint8_t* Bsp_GetPwmDutyCycle();
 
 uint8_t Bsp_GetSamplingFlag(void);
 void Bsp_ClearSamplingFlag(void);

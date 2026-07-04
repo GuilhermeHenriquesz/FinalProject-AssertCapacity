@@ -83,7 +83,8 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  Bsp_Init();
+  Sampler_Init();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -97,12 +98,27 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
 
+  uint8_t count = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+      Sampler_AddSample();
+      if (Sampler_IsReady())
+      {
+          count++;
+      }
+      if (count >= 2)
+      {
+          count = 0;
+          printf("Value: %d", Sampler_GetAverage());
+          printf("LED1: %d\nLED2: %d\nLED3: %d", LedPwm_GetDuty(1), LedPwm_GetDuty(2), LedPwm_GetDuty(3));
+          printf("State: %d", Bsp_GetButtonFlag());
+          Sampler_Init();
+      }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

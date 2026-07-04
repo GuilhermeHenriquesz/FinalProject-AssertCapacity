@@ -11,6 +11,7 @@ volatile uint8_t samplerFlag;
 volatile uint8_t debounceFlag;
 volatile uint8_t buttonFlag;
 volatile uint8_t uartFlag;
+static uint8_t dutyCycles[3];
 
 
 
@@ -39,39 +40,70 @@ void Bsp_Init()
     debounceFlag = 0;
     buttonFlag = 0;
     uartFlag = 0;
+
 }
 
 uint16_t Bsp_ReadAdc(void)
 {
-    HAL_ADC_Start(&hadc1);
-    HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-    return (uint16_t) HAL_ADC_GetValue(&hadc1);
+    if (samplerFlag == 1)
+    {
+        HAL_ADC_Start(&hadc1);
+        HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+        samplerFlag = 0;
+        return (uint16_t) HAL_ADC_GetValue(&hadc1);
+
+    }
+
 }
 
 void Bsp_SetPwmDutyCycle(uint8_t ledId, uint8_t dutyCycle)
 {
     uint32_t compare;
 
-    if (ledId == 1)
+    if (!buttonFlag)
     {
-        compare = (dutyCycle * (__HAL_TIM_GET_AUTORELOAD(&htim3) + 1U)) / 100U;
-        __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3, compare);
-    }
+        if (ledId == 1)
+        {
+            compare = (dutyCycle * (__HAL_TIM_GET_AUTORELOAD(&htim3) + 1U)) / 100U;
+            if (compare > 100)
+            {
+                compare = 100;
+            }
+            dutyCycles[0] = compare;
+            __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3, compare);
+        }
 
-    else if (ledId == 2)
-    {
-        compare = (dutyCycle * (__HAL_TIM_GET_AUTORELOAD(&htim12) + 1U)) / 100U;
-        __HAL_TIM_SET_COMPARE(&htim12, TIM_CHANNEL_1, compare);
-    }
+        else if (ledId == 2)
+        {
+            compare = (dutyCycle * (__HAL_TIM_GET_AUTORELOAD(&htim12) + 1U)) / 100U;
+            if (compare > 100)
+            {
+                compare = 100;
+            }
+            dutyCycles[1] = compare;
+            __HAL_TIM_SET_COMPARE(&htim12, TIM_CHANNEL_1, compare);
+        }
 
-    else if (ledId == 3)
-    {
-        compare = (dutyCycle * (__HAL_TIM_GET_AUTORELOAD(&htim4) + 1U)) / 100U;
-        __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_2, compare);
+        else if (ledId == 3)
+        {
+            compare = (dutyCycle * (__HAL_TIM_GET_AUTORELOAD(&htim4) + 1U)) / 100U;
+            if (compare > 100)
+            {
+                compare = 100;
+            }
+            dutyCycles[2] = compare;
+            __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_2, compare);
+        }
     }
 
 
 }
+
+uint8_t* Bsp_GetPwmDutyCycle()
+{
+    return dutyCycles;
+}
+
 
 uint8_t Bsp_GetSamplingFlag(void)
 {

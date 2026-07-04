@@ -9,7 +9,7 @@
 ../Core/Src/Bsp.c:101:6:Bsp_SetDebounceFlag	4	static
 ../Core/Src/Bsp.c:106:9:Bsp_GetButtonFlag	4	static
 ../Core/Src/Bsp.c:111:6:Bsp_ClearButtonFlag	4	static
-../Core/Src/Bsp.c:116:6:Bsp_SetButtonFlag	4	static
+../Core/Src/Bsp.c:116:6:Bsp_SetFreezFlag	4	static
 ../Core/Src/Bsp.c:121:9:Bsp_GetUartFlag	4	static
 ../Core/Src/Bsp.c:126:6:Bsp_ClearUartFlag	4	static
 ../Core/Src/Bsp.c:131:6:Bsp_SetUartFlag	4	static

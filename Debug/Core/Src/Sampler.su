@@ -1,0 +1,4 @@
+../Core/Src/Sampler.c:13:6:Sampler_Init	4	static
+../Core/Src/Sampler.c:22:6:Sampler_AddSample	16	static
+../Core/Src/Sampler.c:32:9:Sampler_IsReady	4	static
+../Core/Src/Sampler.c:37:10:Sampler_GetAverage	4	static

@@ -1,4 +1,6 @@
+#include <stdint.h>
 #include "Sampler.h"
+
 
 #define ADC_MAX_VALUE 4095U;
 
@@ -17,9 +19,9 @@ void Sampler_Init(void)
     ready = 0;
 }
 
-void Sampler_AddSample(uint16_t sample)
+void Sampler_AddSample()
 {
-    sum += sample;
+    sum += Bsp_ReadAdc();
     sampleCount++;
     if (sampleCount == 100)
     {
@@ -27,19 +29,17 @@ void Sampler_AddSample(uint16_t sample)
     }
 }
 
-bool Sampler_IsReady(void)
+uint8_t Sampler_IsReady(void)
 {
     return ready;
 }
 
 uint16_t Sampler_GetAverage(void)
 {
-    average = sum/100U;
+    average = (uint16_t) (sum/100U);
     return average;
 
 }
 
-uint8_t Sampler_GetPercent(void)
-{
-    percentage = (average * 100U) / ADC_MAX_VALUE;
-}
+
+
